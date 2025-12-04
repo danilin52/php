@@ -59,8 +59,6 @@
 	$count2 = getTable(10, 10);
 	$count3 = getTable(8, 10);
 	$count4 = getTable();
-	
-	// Вывод общего количества вызовов
 	echo "Таблица была отрисована $count4 раза";
 	?> 
 </body>
