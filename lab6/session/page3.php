@@ -12,9 +12,7 @@ session_set_cookie_params([
 if (isset($_GET[session_name()])) {
     session_id($_GET[session_name()]);
 }
-error_reporting(E_ALL & ~E_DEPRECATED);
-ini_set("session.use_only_cookies", "0");
-ini_set("session.use_trans_sid", "1");
+
 // Открываем сессию
 session_start();
 
