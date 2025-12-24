@@ -1,51 +1,42 @@
 <?php
 declare(strict_types=1);
-function drawTable(int $cols = 10, int $rows = 10, string $color = 'yellow'): void
+
+function drawTable(int $cols = 10, int $rows = 10, string $color = 'yellow'): int
 {
+    static $count = 0;
+    $count++;
 
-    //echo '<table>';
-
-    echo '<tr>';
-    echo '<th style="background-color:' . $color . ';">*</th>';
-    for ($i = 1; $i <= $cols; $i++)
-        echo '<th style="background-color:' . $color . ';">', $i, '</th>';
-    echo '</tr>';
-
-    for ($i = 1; $i <= $rows; $i++) {
-        echo '<tr>';
-
-        echo '<th style="background-color:' . $color . ';">', $i, '</th>';
-        for ($j = 1; $j <= $cols; $j++)
-            echo '<td>', $i * $j, '</td>';
-        echo '</tr>';
+    echo "<table>";
+    for ($i = 0; $i <= $rows; $i++) {
+        echo "<tr>";
+        for ($j = 0; $j <= $cols; $j++) {
+            if ($i === 0 && $j === 0) {
+                echo "<th></th>";
+            } elseif ($i === 0) {
+                echo "<th style='background-color: {$color}; font-weight: bold; text-align: center;'>{$j}</th>";
+            } elseif ($j === 0) {
+                echo "<th style='background-color: {$color}; font-weight: bold; text-align: center;'>{$i}</th>";
+            } else {
+                echo "<td style='text-align: center;'>" . ($i * $j) . "</td>";
+            }
+        }
+        echo "</tr>";
     }
+    echo "</table>";
 
-    //echo '</table>';
-
+    return $count;
 }
+
+
+
 function getMenu(array $menu, bool $vertical = true): void
 {
-    $menuClasses = $vertical ? 'menu' : 'menu vertical';
-
-    echo "<ul class='$menuClasses'>";
-    foreach ($menu as $item)
-        echo "<li><a href=\"{$item['href']}\">{$item['link']}</a></li>";
-
-    echo '</ul>';
-
+    $class = $vertical ? 'menu' : 'menu horizontal';
+    echo "<ul class=\"{$class}\">";
+    foreach ($menu as $item) {
+        echo "<li><a href='" . htmlspecialchars($item['href']) . "'>" . htmlspecialchars($item['link']) . "</a></li>";
+    }
+    echo "</ul>";
 }
-function setWelcome(string &$welcome): void
-{
-    $hour = getdate()['hours'];
 
-    if ($hour >= 0 && $hour < 6)
-        $welcome = 'Доброй ночи';
-    elseif ($hour >= 6 && $hour < 12)
-        $welcome = 'Доброе утро';
-    elseif ($hour >= 12 && $hour < 18)
-        $welcome = 'Добрый день';
-    elseif ($hour >= 18 && $hour < 23)
-        $welcome = 'Добрый вечер';
-    else
-        $welcome = 'Доброй ночи';
-}
+?>
